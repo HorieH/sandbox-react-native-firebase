@@ -6,14 +6,16 @@ const db = firebase.database()
 const ref = db.ref('test')
 
 export default class App extends React.Component {
-  constructor() {
-    super()
+  state = {
+    count: 0
+  }
 
-    this.state = {
-      count: 0
-    }
-
+  componentDidMount() {
     ref.on('value', snapshot => this.setState(snapshot.val()))
+  }
+
+  componentWillUnmount() {
+    ref.off('value')
   }
 
   plus = () => {
